@@ -20,7 +20,10 @@ self.addEventListener("activate", async () => {
   console.log("Client worker initialized");
 });
 
-chrome.runtime.onMessage.addListener((message: messaging.CallRequest, sender, respond) => {
+chrome.runtime.onMessage.addListener((message: messaging.Message, sender, respond) => {
+  if (!messaging.isCallRequest(message))
+    return;
+
   let functionName = message.function;
 
   if (sender.origin === self.location.origin) {
