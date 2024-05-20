@@ -33,14 +33,13 @@ use std::collections::{BTreeMap, HashMap};
 use std::sync::RwLock;
 use std::time::Duration;
 
-mod config;
-mod options;
-mod wallet;
+type ChainClients<P, S> = std::collections::BTreeMap<ChainId, ArcChainClient<P, S>>;
+
+mod client;
+use client::*;
 
 use options::ClientOptions;
 use wallet::Wallet;
-
-type ChainClients<P, S> = std::collections::BTreeMap<ChainId, ArcChainClient<P, S>>;
 
 // TODO convert to IndexedDbStore once we refactor Context
 type WebStorage = linera_storage::DbStorage<
